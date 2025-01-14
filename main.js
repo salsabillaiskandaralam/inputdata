@@ -36,7 +36,7 @@ export async function ambildaftarmember() {
       id: dok.id,
       nama: dok.data().nama,
       email: dok.data().email,
-      nomortelepon: dok.data().nomortelepon,
+      nomortelepon: dok.data().nomortelepon
     });
   });
 
@@ -47,7 +47,7 @@ export function formatAngka(x) {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 }
 
-export async function tambahmember(nama, email, nomortelepon) {
+export async function tambahnama(nama, email, nomortelepon) {
   try {
     const dokRef = await addDoc(collection(db, 'penginputdata'), {
 
@@ -55,18 +55,18 @@ export async function tambahmember(nama, email, nomortelepon) {
       email: email,
       nomortelepon: nomortelepon
     });
-    console.log('Berhasil menambah datamember ' + dokRef.id);
+    console.log('Berhasil menambah inputdata ' + dokRef.id);
   } catch (e) {
-    console.log('Gagal menambah datamember ' + e);
+    console.log('Gagal menambah inputdata ' + e);
   }
 }
 
 
-export async function hapusmember(docid) {
-  await deleteDoc(doc(db, "member", docid));
+export async function hapusdata(docid) {
+  await deleteDoc(doc(db, "inputdata", docid));
 }
 export async function ubahProduk(docId, nama, email, nomortelepon) {
-  await updateDoc(doc(db, "member", docId), {
+  await updateDoc(doc(db, "inputdata", docId), {
     nama: nama,
     email: email,
     nomortelepon: nomortelepon,
@@ -74,7 +74,7 @@ export async function ubahProduk(docId, nama, email, nomortelepon) {
 }
 
 export async function ambilmember(docId) {
-  const docRef = await doc(db, "member", docId);
+  const docRef = await doc(db, "inputdata", docId);
   const docSnap = await getDoc(docRef);
 
   return await docSnap.data();
